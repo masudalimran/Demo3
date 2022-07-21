@@ -3,6 +3,8 @@ import {} from "dotenv/config";
 import mongoose from "mongoose";
 import stringRouter from "./routes/stringRoutes.mjs";
 import cors from "cors";
+// Logger
+import log from "log-to-file";
 
 // Constants
 const app = express();
@@ -13,6 +15,7 @@ try {
   await mongoose.connect(process.env.LOCAL_DB);
   console.log("Connected to Local MongoDB Database");
 } catch (error) {
+  log(error.message, "./logs/errors.log");
   console.log(error.message);
 }
 

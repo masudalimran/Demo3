@@ -1,6 +1,8 @@
 import { Router } from "express";
 import str from "../models/stringsModel.mjs";
 const stringRouter = Router();
+// Logger
+import log from "log-to-file";
 
 // create String
 stringRouter.post("/", async (req, res) => {
@@ -9,6 +11,7 @@ stringRouter.post("/", async (req, res) => {
     await newText.save();
     res.json({ message: "Code Working" });
   } catch (error) {
+    log(error.message, "./logs/errors.log");
     res.send(error.message);
   }
 });
@@ -19,6 +22,7 @@ stringRouter.get("/", async (req, res) => {
     const stringList = await str.find();
     res.json(stringList);
   } catch (error) {
+    log(error.message, "./logs/errors.log");
     res.send(error.message);
   }
 });
@@ -29,6 +33,7 @@ stringRouter.delete("/:id", async (req, res) => {
     await str.findByIdAndDelete({ _id: req.params.id });
     res.json({ message: "Deletion Code Working" });
   } catch (error) {
+    log(error.message, "./logs/errors.log");
     res.send(error.message);
   }
 });
