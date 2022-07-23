@@ -20,6 +20,7 @@ stringRouter.post("/", async (req, res) => {
 stringRouter.get("/", async (req, res) => {
   try {
     const stringList = await str.find();
+    log("Creation Successful!", "./logs/errors.log");
     res.json(stringList);
   } catch (error) {
     log(error.message, "./logs/errors.log");
@@ -31,6 +32,7 @@ stringRouter.get("/", async (req, res) => {
 stringRouter.delete("/:id", async (req, res) => {
   try {
     await str.findByIdAndDelete({ _id: req.params.id });
+    log("Deletion Successful!", "./logs/errors.log");
     res.json({ message: "Deletion Code Working" });
   } catch (error) {
     log(error.message, "./logs/errors.log");

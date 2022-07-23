@@ -13,6 +13,7 @@ import {
 // Icon
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import CloseIcon from "@mui/icons-material/Close";
+import { host } from "./config";
 
 function App() {
   // Use State
@@ -23,7 +24,7 @@ function App() {
   // Use Effect
   // get stringList from DB
   const getStrings = async () => {
-    const res = await axios.get("http://localhost:3600/rest/strings/");
+    const res = await axios.get(`${host}/rest/strings/`);
     setStringList([...res.data]);
   };
 
@@ -40,7 +41,7 @@ function App() {
   const handleAddClick = async () => {
     if (value.length > 0 && value.length < 31) {
       setValue("");
-      await axios.post("http://localhost:3600/rest/strings/", {
+      await axios.post(`${host}/rest/strings/`, {
         text: value,
       });
       getStrings();
@@ -49,7 +50,7 @@ function App() {
 
   const handleRemove = async (index) => {
     let arr = [...stringList];
-    await axios.delete(`http://localhost:3600/rest/strings/${arr[index]._id}`);
+    await axios.delete(`${host}/rest/strings/${arr[index]._id}`);
     getStrings();
   };
 

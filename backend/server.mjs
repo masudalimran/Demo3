@@ -12,8 +12,12 @@ const PORT = process.env.PORT || 3600;
 
 // DB
 try {
-  await mongoose.connect(process.env.LOCAL_DB);
-  console.log("Connected to Local MongoDB Database");
+  await mongoose.connect(process.env.LOCAL_DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  log("Connected to DB successfully!", "./logs/errors.log");
+  console.log("Connected to Local Mongo DB Database");
 } catch (error) {
   log(error.message, "./logs/errors.log");
   console.log(error.message);
